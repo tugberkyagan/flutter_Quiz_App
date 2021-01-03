@@ -1,4 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/Screens/HomePage.dart';
+
+void gotoHomePage(
+    BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+        builder: (context) => HomePage()),
+  );
+}
 
 class ResultPage extends StatefulWidget {
   int score;
@@ -13,25 +22,34 @@ class _ResultPageState extends State<ResultPage> {
     return Scaffold(
       backgroundColor: Colors.yellowAccent,
       appBar: AppBar(
-        title: Text(' Sonuç ',
+        title: Text(' Result ',
         style: TextStyle(color: Colors.black),),
         backgroundColor: Colors.orangeAccent,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            'Congratulations! Your Score is',
+            style: TextStyle(fontSize: 20),
+          ),
+          Text(
+            '${widget.score}',
+            style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
+          ),
             Image.asset(
               'assets/finish.png',
               width: 500,
               height: 500,
             ),
-          Text(
-            'Tebrikler Puanınız',
-            style: TextStyle(fontSize: 30),
-          ),
-          Text(
-            '${widget.score}',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+
+          RaisedButton(
+            color: Colors.orangeAccent,
+            padding: EdgeInsets.all(20),
+            onPressed: () {
+              gotoHomePage(context);
+            },
+            child: Text('Return Home'),
           ),
         ],
       ),

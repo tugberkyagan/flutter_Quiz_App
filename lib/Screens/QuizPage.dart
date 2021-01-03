@@ -4,11 +4,19 @@ import 'package:quiz_app/Service/QuizManager.dart';
 import 'package:flutter/material.dart';
 
 class QuizPage extends StatefulWidget {
+  final String diff;
+  final String cat;
+
+  const QuizPage({Key key, this.diff, this.cat}) : super(key: key);
+
   @override
   _QuizPageState createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPage> {
+  String get diff => this.widget.diff.toLowerCase();
+  String get cat => this.widget.cat;
+
   QuizManager _manager = QuizManager();
   Future<void> quizloader;
   List<Widget> getOptions(Question question) {
@@ -48,7 +56,7 @@ class _QuizPageState extends State<QuizPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    quizloader = _manager.LoadQuestions(10);
+    quizloader = _manager.LoadQuestions(10,diff,cat);
   }
 
   @override
@@ -56,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-              'Questions ${_manager.getCurrentId()}/${_manager.totalQuestionNumber()}',
+              'Question ${_manager.getCurrentId()}/${_manager.totalQuestionNumber()}',
           style: TextStyle(color: Colors.black),),
           backgroundColor: Colors.orangeAccent,
         ),

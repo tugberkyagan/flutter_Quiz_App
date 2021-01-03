@@ -4,11 +4,18 @@ import 'package:quiz_app/Service/TrueFalseManager.dart';
 import 'package:quiz_app/Service/Question.dart';
 
 class TrueFalsePage extends StatefulWidget {
+  final String diff;
+  final String cat;
+
+  const TrueFalsePage({Key key, this.diff, this.cat}) : super(key: key);
   @override
   _TrueFalsePageState createState() => _TrueFalsePageState();
 }
 
 class _TrueFalsePageState extends State<TrueFalsePage> {
+  String get diff => this.widget.diff.toLowerCase();
+  String get cat => this.widget.cat;
+
   TrueFalseManager _manager = TrueFalseManager();
   Future<void> quizloader;
   List<Widget> getOptions(Question question) {
@@ -48,7 +55,7 @@ class _TrueFalsePageState extends State<TrueFalsePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    quizloader = _manager.LoadQuestions(10);
+    quizloader = _manager.LoadQuestions(10,diff,cat);
   }
 
   @override
@@ -56,7 +63,7 @@ class _TrueFalsePageState extends State<TrueFalsePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Questions ${_manager.getCurrentId()}/${_manager.totalQuestionNumber()}',
+            'Question ${_manager.getCurrentId()}/${_manager.totalQuestionNumber()}',
             style: TextStyle(color: Colors.black),),
           backgroundColor: Colors.orangeAccent,
         ),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'Question.dart';
 import 'Option.dart';
 import 'package:http/http.dart' as http;
@@ -10,9 +9,25 @@ class QuizManager {
     //LoadQuestions(3);
     //  print("after");
   }
-  Future<void> LoadQuestions(int numberOfQuestions) async {
+  Future<void> LoadQuestions(int numberOfQuestions, String diff, String cat) async {
+    int categoryId;
+
+    switch(cat){
+      case "History":{
+        categoryId=23;
+      }
+      break;
+      case "Politics":{
+        categoryId=24;
+      }
+      break;
+      case "Art":{
+        categoryId=25;
+      }
+      break;
+    }
     var url =
-        'https://opentdb.com/api.php?amount=$numberOfQuestions&category=18&difficulty=easy&type=multiple';
+        'https://opentdb.com/api.php?amount=$numberOfQuestions&category=$categoryId&difficulty=$diff&type=multiple';
     var response = await http.get(url);
     print(response.statusCode);
     if (response.statusCode == 200) {
